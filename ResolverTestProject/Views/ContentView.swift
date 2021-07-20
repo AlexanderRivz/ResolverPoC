@@ -9,9 +9,16 @@ import SwiftUI
 
 
 struct ContentView: View {
+    
+    @StateObject var catViewModel: CatViewModel = CatViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List(catViewModel.catBreeds, id: \.id) { catBreed in
+                CatCellView(catBreed: catBreed)
+            }
+            .navigationTitle("Cats!")
+        }
     }
 }
 
