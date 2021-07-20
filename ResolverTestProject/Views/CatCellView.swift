@@ -42,6 +42,6 @@ struct CatCellRow: View {
 
 struct CatCellView_Previews: PreviewProvider {
     static var previews: some View {
-        CatCellView(catBreed: Cat(breed: "cute cat", country: "El Salvador", origin: "El Salvador", coat: "Short Hair", pattern: "Stripes"))
+        CatCellView(catBreed: Cat(breed: "Aguacat", country: "El Salvador", origin: "El Salvador", coat: "Short Hair", pattern: "Stripes"))
     }
 }
