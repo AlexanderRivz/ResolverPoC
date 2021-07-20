@@ -11,13 +11,16 @@ import Combine
 class CatService: Service {
     
     private var networkRequester: Requester
+    private var urlComponents: Components
     
-    init(networkRequester: Requester = NetworkRequester()) {
+    init(networkRequester: Requester = NetworkRequester(), urlComponents: Components = URLComponentsService()) {
         self.networkRequester = networkRequester
+        self.urlComponents = urlComponents
     }
     
     func requestCats() -> AnyPublisher<ResultModel, Error> {
-        networkRequester.fetch(formUrl: URL(string: "https://catfact.ninja/breeds")!)
+        guard let url = urlComponents.makeCryptoCurrencyComponents().url else { return Fail(error: URLError(.badURL)).eraseToAnyPublisher() }
+        return networkRequester.fetch(formUrl: url)
             .decode(type: ResultModel.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
