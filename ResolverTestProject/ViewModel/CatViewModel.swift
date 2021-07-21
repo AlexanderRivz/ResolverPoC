@@ -12,15 +12,14 @@ import Resolver
 class CatViewModel: ObservableObject {
     
     @Published var catBreeds: [Cat] = []
-    @Injected private var catService: Service
     private var setCancellables: Set<AnyCancellable> = []
     
     init() {
-        getCats()
+        getCats(withCatService: Resolver.resolve())
     }
     
-    func getCats() {
-        catService.requestCats()
+    func getCats(withCatService catService: Service) {
+        catService.requestCats(withUrlComponents: Resolver.resolve(), withRequester: Resolver.resolve())
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 print(completion)

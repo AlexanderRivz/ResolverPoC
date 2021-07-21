@@ -11,12 +11,12 @@ import Resolver
 
 class CatService: Service {
     
-    @Injected private var networkRequester: Requester
-    @Injected private var urlComponents: Components
-    
-    func requestCats() -> AnyPublisher<ResultModel, Error> {
+    func requestCats(
+        withUrlComponents urlComponents: Components,
+        withRequester networkRequester: Requester
+    ) -> AnyPublisher<ResultModel, Error> {
         guard let url = urlComponents.makeCryptoCurrencyComponents().url else { return Fail(error: URLError(.badURL)).eraseToAnyPublisher() }
-        return networkRequester.fetch(formUrl: url)
+        return networkRequester.fetch(formUrl: url, withSession: Resolver.resolve())
             .decode(type: ResultModel.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }

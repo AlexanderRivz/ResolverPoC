@@ -10,6 +10,6 @@ import Combine
 
 protocol Requester {
     
-    func fetch(formUrl url: URL) -> AnyPublisher<Data, URLError>
+    func fetch(formUrl url: URL, withSession session: URLSession) -> AnyPublisher<Data, URLError>
     
 }

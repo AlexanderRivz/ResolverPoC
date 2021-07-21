@@ -10,6 +10,9 @@ import Combine
 
 protocol Service {
     
-    func requestCats() -> AnyPublisher<ResultModel, Error>
+    func requestCats(
+        withUrlComponents urlComponents: Components,
+        withRequester networkRequester: Requester
+    ) -> AnyPublisher<ResultModel, Error>
     
 }
