@@ -7,16 +7,12 @@
 
 import Foundation
 import Combine
+import Resolver
 
 class CatService: Service {
     
-    private var networkRequester: Requester
-    private var urlComponents: Components
-    
-    init(networkRequester: Requester = NetworkRequester(), urlComponents: Components = URLComponentsService()) {
-        self.networkRequester = networkRequester
-        self.urlComponents = urlComponents
-    }
+    @Injected private var networkRequester: Requester
+    @Injected private var urlComponents: Components
     
     func requestCats() -> AnyPublisher<ResultModel, Error> {
         guard let url = urlComponents.makeCryptoCurrencyComponents().url else { return Fail(error: URLError(.badURL)).eraseToAnyPublisher() }

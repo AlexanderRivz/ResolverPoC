@@ -7,15 +7,15 @@
 
 import Foundation
 import Combine
+import Resolver
 
 class CatViewModel: ObservableObject {
     
     @Published var catBreeds: [Cat] = []
-    private var catService: Service
+    @Injected private var catService: Service
     private var setCancellables: Set<AnyCancellable> = []
     
-    init(catService: Service = CatService()) {
-        self.catService = catService
+    init() {
         getCats()
     }
     
