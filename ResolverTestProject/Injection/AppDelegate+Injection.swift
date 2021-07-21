@@ -11,39 +11,28 @@ import Resolver
 extension Resolver: ResolverRegistering {
     
     public static func registerAllServices() {
-        registerAllModels()
-        registeringServices()
-    }
-    
-}
-
-extension Resolver {
-    
-    public static func registerAllModels() {
-        register { CatViewModel() }
-                .resolveProperties { (resolver, model) in
-                    model.catService = resolver.optional()
-                }
-        register { CatService() }
-                .resolveProperties { (resolver, model) in
-                    model.networkRequester = resolver.optional()
-                    model.urlComponents = resolver.optional()
-                }
-        register { NetworkRequester() }
-                .resolveProperties { (resolver, model) in
-                    model.session = resolver.optional()
-                }
-    }
-    
-}
-
-extension Resolver {
-    
-    public static func registeringServices() {
-        register { CatService() as Service }
-        register { NetworkRequester() as Requester }
-        register { URLComponentsService() as Components }
+        register { URLComponentsService() /*as Components*/ }
+            .implements(Components.self)
         register { URLSession(configuration: .default) }
+        
+        register { CatViewModel() }
+            .resolveProperties { (_, model) in
+                model.catService = optional()
+                
+            }
+        
+        register { CatService() }
+            .resolveProperties { (_, model) in
+                model.networkRequester = optional()
+                model.urlComponents = optional()
+            }
+            .implements(Service.self)
+        
+        register { NetworkRequester() }
+            .resolveProperties { (_, model) in
+                model.session = optional()
+            }
+            .implements(Requester.self)
     }
     
 }

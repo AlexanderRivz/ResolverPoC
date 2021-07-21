@@ -12,7 +12,7 @@ import Resolver
 class CatViewModel: ObservableObject {
     
     @Published var catBreeds: [Cat] = []
-    var catService: Service!
+    var catService: Service! = Resolver.optional()
     private var setCancellables: Set<AnyCancellable> = []
     
     init() {

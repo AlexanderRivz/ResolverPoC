@@ -11,8 +11,8 @@ import Resolver
 
 class CatService: Service {
     
-    var networkRequester: Requester!
-    var urlComponents: Components!
+    var networkRequester: Requester! = Resolver.optional()
+    var urlComponents: Components! = Resolver.optional()
     
     func requestCats() -> AnyPublisher<ResultModel, Error> {
         guard let url = urlComponents.makeCryptoCurrencyComponents().url else { return Fail(error: URLError(.badURL)).eraseToAnyPublisher() }

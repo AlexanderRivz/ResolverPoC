@@ -11,7 +11,7 @@ import Resolver
 
 class NetworkRequester: Requester {
     
-    var session: URLSession!
+    var session: URLSession! = Resolver.optional()
     
     func fetch(formUrl url: URL) -> AnyPublisher<Data, URLError> {
         session.dataTaskPublisher(for: url)
