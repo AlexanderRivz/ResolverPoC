@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-
+import Resolver
 
 struct ContentView: View {
     
-    @StateObject var catViewModel: CatViewModel = CatViewModel()
+    @StateObject var catViewModel: CatViewModel = CatViewModel(catService: Resolver.resolve())
     
     var body: some View {
         NavigationView {

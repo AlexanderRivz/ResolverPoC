@@ -11,8 +11,9 @@ import Resolver
 extension Resolver: ResolverRegistering {
     
     public static func registerAllServices() {
-        register { CatService() as Service }
-        register { NetworkRequester() as Requester }
+        register { CatViewModel(catService: resolve()) }
+        register { CatService(networkRequester: resolve(), urlComponents: resolve()) as Service }
+        register { NetworkRequester(session: resolve()) as Requester }
         register { URLComponentsService() as Components }
         register { URLSession(configuration: .default) }
     }
