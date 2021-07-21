@@ -11,11 +11,8 @@ import Resolver
 
 class NetworkRequester: Requester {
     
-    @Injected private var session: URLSession
-    
-//    init(session: URLSession = URLSession.shared) {
-//        self.session = session
-//    }
+    var session: URLSession = Resolver.resolve()
+
     
     func fetch(formUrl url: URL) -> AnyPublisher<Data, URLError> {
         session.dataTaskPublisher(for: url)
