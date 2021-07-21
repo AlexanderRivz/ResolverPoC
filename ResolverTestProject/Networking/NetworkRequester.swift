@@ -7,14 +7,15 @@
 
 import Foundation
 import Combine
+import Resolver
 
 class NetworkRequester: Requester {
     
-    private var session: URLSession
+    @Injected private var session: URLSession
     
-    init(session: URLSession = URLSession.shared) {
-        self.session = session
-    }
+//    init(session: URLSession = URLSession.shared) {
+//        self.session = session
+//    }
     
     func fetch(formUrl url: URL) -> AnyPublisher<Data, URLError> {
         session.dataTaskPublisher(for: url)
