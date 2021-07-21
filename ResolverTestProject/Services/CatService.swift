@@ -11,8 +11,8 @@ import Resolver
 
 class CatService: Service {
     
-    @Injected private var networkRequester: Requester
-    @Injected private var urlComponents: Components
+    lazy var networkRequester: Requester = getNetworkRequester()
+    lazy var urlComponents: Components = getUrlComponents()
     
     func requestCats() -> AnyPublisher<ResultModel, Error> {
         guard let url = urlComponents.makeCryptoCurrencyComponents().url else { return Fail(error: URLError(.badURL)).eraseToAnyPublisher() }
@@ -20,5 +20,12 @@ class CatService: Service {
             .decode(type: ResultModel.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
+    
+}
+
+extension CatService: Resolving {
+    
+    func getNetworkRequester() -> Requester { return resolver.resolve() }
+    func getUrlComponents() -> Components { return resolver.resolve() }
     
 }

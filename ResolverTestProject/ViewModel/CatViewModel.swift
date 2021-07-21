@@ -12,7 +12,7 @@ import Resolver
 class CatViewModel: ObservableObject {
     
     @Published var catBreeds: [Cat] = []
-    @Injected private var catService: Service
+    lazy private var catService: Service = getCatService()
     private var setCancellables: Set<AnyCancellable> = []
     
     init() {
@@ -30,5 +30,11 @@ class CatViewModel: ObservableObject {
             })
             .store(in: &setCancellables)
     }
+    
+}
+
+extension CatViewModel: Resolving {
+    
+    func getCatService() -> Service { return resolver.resolve() }
     
 }
