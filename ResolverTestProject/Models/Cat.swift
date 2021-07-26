@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Cat: Codable, Identifiable {
+struct Cat: Codable, Identifiable, Equatable {
     
     let breed: String
     let country: String

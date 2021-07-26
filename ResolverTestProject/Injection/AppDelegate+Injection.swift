@@ -11,9 +11,13 @@ import Resolver
 extension Resolver: ResolverRegistering {
     
     public static func registerAllServices() {
-        register { CatService() as Service }
-        register { NetworkRequester() as Requester }
-        register { URLComponentsService() as Components }
+        defaultScope = .graph
+        register { CatService() }
+            .implements(Service.self)
+        register { NetworkRequester() }
+            .implements(Requester.self)
+        register { URLComponentsService() }
+            .implements(Components.self)
         register { URLSession(configuration: .default) }
     }
     
